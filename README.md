@@ -1,6 +1,6 @@
-# RFC 7540 translation (in progress)
+# RFC 7540 Translation (in progress)
 
-HTTP/2协议规范, 欢迎参与翻译!
+[HTTP/2 Standards](https://tools.ietf.org/html/rfc7540), 欢迎参与翻译!
 
 (更新时间2015-9-16)
 
