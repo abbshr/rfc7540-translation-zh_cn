@@ -25,7 +25,7 @@
 + [ ] 1. Instroduction
 + [ ] 2. Overview
 + [ ] 3. Starting HTTP/2
-+ [ ] (**doing**) 4. HTTP Frames
++ [ ] 4. (**doing**) HTTP Frames
 + [ ] 5. Streams and Multiplexing
 + [ ] 6. Frame Definitions
 + [ ] 7. Error Codes
