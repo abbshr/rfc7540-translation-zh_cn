@@ -10,7 +10,7 @@
 + [ ] 2. Overview
 + [ ] 3. Starting HTTP/2
 + [x] 4. HTTP Frames
-+ [ ] (**doing**) 5. Streams and Multiplexing
++ [ ] 5. (**translating**) Streams and Multiplexing
 + [ ] 6. Frame Definitions
 + [ ] 7. Error Codes
 + [ ] 8. HTTP Message Exchanges
