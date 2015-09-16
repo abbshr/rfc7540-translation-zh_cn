@@ -2,6 +2,8 @@
 
 [HTTP/2 Standards](https://tools.ietf.org/html/rfc7540), 欢迎参与翻译!
 
+**新来的同学请先移步至issue**: https://github.com/abbshr/rfc7540-translation-zh_cn/issues/1
+
 (更新时间2015-9-16)
 
 翻译进度:
