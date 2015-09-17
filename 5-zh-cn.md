@@ -45,10 +45,10 @@
    send:   发送这个frame的终端
    recv:   接受这个frame的终端
 
-   H:  HEADERS frame (隐含CONTINUATION frame)
-   PP: PUSH_PROMISE frame (隐含CONTINUATION frame)
+   H:  HEADERS帧 (隐含CONTINUATION帧)
+   PP: PUSH_PROMISE帧 (隐含CONTINUATION帧)
    ES: END_STREAM标记
-   R:  RST_STREAM frame
+   R:  RST_STREAM帧
 ```
 
 该图只展示了流的状态转换以及frame和标记如何对转换产生影响. 这方面, `CONTINUATION`frames不会导致状态的转换, 他们只是跟在`HEADERS`或`PUSH_PROMISE` frame后面的有效组成部分.
@@ -70,7 +70,7 @@
 
 	在`idle`状态接收到任何非`HEADERS`或`PUSH_PROMISE`frame必须视为连接错误, 错误类型为`PROTOCOL_ERROR`
   
-+ `reserved`(local)
++ `reserved (local)`
 	处于这种状态的流表示它已经发送了一个`PUSH_PROMISE`frame并成为promised流. `PUSH_PROMISE`frame通过关联一个由远程对等点初始化的流来转换idle流到reserved流.  
   处于这个状态的流, 只有下面的几种可能状态转换:
   
@@ -81,7 +81,7 @@
   
   这一状态可能收到`PRIORITY`或`WINDOW_UPDATE`frame. 除了`RST_STREAM`, `PRIORITY`以及`WINDOW_UPDATE`frame之外, 收到其他类型的frame必须视为`PROTOCOL_EROR`类型的连接错误.
 
-+ `reserved`(remote)
++ `reserved (remote)`
 	如果一个流已被远程对等点保留, 状态就会变成`reserved(remote)`.  
   可能的转换如下:
   
@@ -99,7 +99,7 @@
   
   在这个状态发送RST_STREAM frame可以使状态立即变成closed.
 
-+ `half-closed`(local)
++ `half-closed (local)`
 	处于这个状态的流不能发送除WINDOW\_UPDATE, PRIORITY以及RST\_STREAM之外的frame.
   
   收到一个标记了END_STREAM的frame或者发送一个RST_STREAM frame, 都会使状态变成closed.
@@ -108,7 +108,7 @@
   
   收到的PRIORITY frame用于重定流的优先级次序(依据流的标记而定)
 
-+ `half-closed`(remote)
++ `half-closed (remote)`
 	处于这个状态的流不能发送frame了. 并且端点也无需继续维护接收方流控窗口.
   
   如果端点收到额外的frame,并且不是WINDOW_UPDATE, PRIORITY或RST_STREAM,那么必须响应一个类型为STREAM_CLOSED的流错误.
@@ -124,10 +124,26 @@
   
   同样, 收到END_STREAM标记后又收到**非如下描述**的frame, 会触发一个连接错误(类型STREAM_CLOSED):
   
+  发送了包含END_STREAM标记的DATA或HEADERS frame后的一小段时间内, 允许WINDOW_UPDATE或RST_STREAM frame被接收. 直到远程对等端收到并处理了RST_STERAM或包含END_STREAM标记的frame, 才可以发送这些类型的frame. 
+  假如在发送了END_STREAM后已明显过了超时时间, 这时却再次收到frame, 尽管终端可以选择把这个frame当成PROTOCOL_ERROR类型的连接错误来处理, 但无论如何最终**必须**忽略这种情况下收到的WINDOW_UPDATE或RST_STREAM frame.
+  
+  PRIORITY帧可从closed流上发到优先级更高的流(取决于closed流). 终端应该处理PRIORITY帧, 尽管他们可能因为流已经从依赖树中移除而被忽略.
+  
+  如果是发送RST_STREAM帧的原因让状态转换到了closed, 收到RST_STREAM的对等端这时可能已经发送了RST_STREAM或者入队等待发送中, 但是已经在流上传输的帧是不可以被撤销的. 这时, 终端必须忽略从closed的流上再取得的帧, 如果这个closed流已经发送了RST_STREAM帧. 终端也可以选择一个超时时间, 忽略在此之后到达的帧, 并一律视作错误.
+  
+  在发送了RST_STREAM之后收到的流控帧(比如DATA帧)也会被用于计算当前连接的流控窗口.(are counted toward the connection flow-control window.) 尽管这些帧有可能被忽略掉, 但是因为他们在发送方收到RST_STREAM之前被发送了, 所以发送方仍有可能会根据这些帧计算流控窗口大小.
+  
+  终端发送了RST_STREAM帧之后可以再接收一个PUSH_PROMISE帧. PUSH_PROMISE帧会将流状态变为reserved即使相关的流已经被重置. 因此需要一个RST_STREAM帧去关闭不再需要的promised流.
+  
+本文档中没有给出更具体说明的地方, 对于收到的那些未在上述状态描述中明确认可的帧, 协议实现上应该视这种情况为一个类型为PROTOCOL_ERROR的连接错误. 另外注意PRIORITY帧可以在流的任何一个状态被发送/接收. 忽略未知类型的帧.
   
 ### 5.1.1 Stream标识符
 
-### 5.1.5 流的并发性
+每个流都用31位无符号整型标识. 客户端初始化流时必须使用奇数做标识, 而那些被服务器初始化的流则要使用偶数做标识. 注: 流标识符0x0用于连接控制消息, 不能用于建立一个新的流.
+
+用于升级到HTTP/2的HTTP/1.1请求会以一个0x1为标识的流响应. 升级完成后, 客户端流0x1处于half-closed(local)状态. 因此, 0x1不能被客户端(从HTTP/1.1升级过来的)选作新的流标示符.
+
+### 5.1.2 流的并发性
 
 ## 5.2 流控
 
