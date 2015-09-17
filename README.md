@@ -8,7 +8,7 @@
 
 翻译进度:
 
-+ [ ] 1. Instroduction
++ [x] 1. Instroduction
 + [ ] 2. Overview
 + [ ] 3. Starting HTTP/2
 + [x] 4. HTTP Frames
