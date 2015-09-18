@@ -31,7 +31,7 @@
   - [ ] 5.4.3 连接终止
   - [ ] 5.5 HTTP/2扩展
 + [ ] 6. Frame Definitions
-+ [x] 7. [Error Codes](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/7-zh-cn.md)
++ [x] 7. [错误码](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/7-zh-cn.md)
 + [ ] 8. HTTP Message Exchanges
 + [ ] 9. Additional HTTP Requirements/Considerations
 + [ ] 10. Security Considerations
