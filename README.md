@@ -11,7 +11,7 @@
 + [x] 1. Instroduction
 + [ ] 2. Overview
 + [ ] 3. Starting HTTP/2
-+ [x] 4. HTTP Frames
++ [x] 4. HTTP帧
 + [ ] 5. (**翻译中**) 流与多路复用
   - [x] 5.1. 流的状态
   - [ ] 5.1.1. (**翻译中**) 流标识符
@@ -44,7 +44,7 @@
 + [ ] 1. Instroduction
 + [ ] 2. Overview
 + [ ] 3. Starting HTTP/2
-+ [ ] 4. (**审校中**) HTTP Frames
++ [x] 4. HTTP帧
 + [ ] 5. 流与多路复用
   - [ ] 5.1. 流的状态
   - [ ] 5.1.1. 流标识符
