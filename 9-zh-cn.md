@@ -34,7 +34,34 @@
 
 ## 9.2 使用TLS功能
 
-### 9.2.1 TLS1.2功能
+`HTTP/2`的实现必须使用`TLS 1.2`([参见： TLS12](https://tools.ietf.org/html/rfc7540#ref-TLS12))或者更高的版本。通用的`TLS`指导（[参见： TLSBCP](https://tools.ietf.org/html/rfc7540#ref-TLSBCP)）应该遵循，同时还需加上`HTTP/2`的一些额外限制条件。
 
-### 9.2.2 TLS1.2加密套件
+`TLS`的实现必须支持服务器名称指示(SNI)的`TLS`扩展([参见：TLS-EXT](https://tools.ietf.org/html/rfc7540#ref-TLS-EXT))。`HTTP/2`客户端在协商`TLS`的时候必须注明目标域名。
 
+`HTTP/2`的部署中在协商`TLS1.3`或者更高的版本时只需要支持和使用服务器域名指示（SNI）扩展。`TLS1.2`的部署需要遵循下面章节的要求。在实现过程中鼓励提供符合要求的默认值，部署的最终负责合规性。
+
+### 9.2.1 TLS 1.2功能
+
+本节描述了`HTTP/2`使用的`TLS 1.2`功能集限制。由于部署的限制，当一些限制没有遇到的时候`TLS`可能无法断开协商。终端必须立即终止一个不符合`TLS`要求的`HTTP/2`连接，并且把他们当做INADEQUATE_SECURITY处理（[参见： Section5.4.1](https://tools.ietf.org/html/rfc7540#section-5.4.1)）。
+
+通过`TLS 1.2`进行的`HTTP/2`部署必须禁止压缩。`TLS`的压缩可能导致信息的暴露（[参见：RFC3749](https://tools.ietf.org/html/rfc3749)）。通用的压缩是不必要的，因为`HTTP/2`提供的压缩功能能够更好的联系上下文，因此可能更加的符合性能要求，安全或者其他方面。
+
+通过`TLS 1.2`进行的`HTTP/2`部署必须禁止重新协商。终端必须将`TLS`协商定义为连接错误，类型为`PROROCOL_ERROR`（[参见 Section 5.4.1](https://tools.ietf.org/html/rfc7540#section-5.4.1)）。务必注意由于密码套件可以加密消息的次数限制，禁止重新协商可能会导致长期连接编程不可用。
+
+终端可以使用协商来对客户端握手提供机密性的保护，但是任何协商必须在发送连接前言之前。在建立连接后，服务器如果看到一个协商请求后会马上协商请求客户端证书。
+
+这有效的防止了使用协商相应来请求一个特定的受保护资源。未来的规范可能会提供一种方式来支持这种需求。可替代地，服务器可以使用类型为`HTTP_1_1_REQUIRED`的错误（[参见： Section 5.4](https://tools.ietf.org/html/rfc7540#section-5.4)）来请求客户端使用支持重新协商的协议。
+
+实现必须在最少支持2048位短暂密码套件（DHE）——使用短暂的迪菲－赫尔曼密钥交换([参见：TLS12](https://tools.ietf.org/html/rfc7540#ref-TLS12))和244位的密码套件（ecdhe）——使用短暂的椭圆曲线迪菲－赫尔曼密钥交换（[参见：RFC4492](https://tools.ietf.org/html/rfc4492)）中等支持密钥交换的加密套件中使用。客户端必须接受高达4096的`DHE`尺寸。终端可以把小于密钥最小尺寸的协商看作为类型为`INADEQUATE_SECURITY`连接错误（[参见 Section 5.4.1](https://tools.ietf.org/html/rfc7540#section-5.4.1)）
+
+### 9.2.2 TLS 1.2加密套件
+
+通过`TLS 1.2`进行的`HTTP/2`部署不应该使用任何流出在加密套件黑名单中的密码套件。
+
+如果黑名单列表中的密码套件已经进行了协商，终端可以选择生成一个类型为`INADEQUATE_SECURITY`的连接错误。除非对等端接收这个密码套件，否则部署中选择使用黑名单中的密码套件会触发连接错误。
+
+黑名单包括密码套件，`TLS 1.2`是强制性的，这就意外着`TLS 1.2`的部署可能使用密码套件的非相交集。为了避免这个问题使得`TLS`的握手失败，通过`TLS 1.2`部署的`HTTP/2`必须支`TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`([参见：TLS-ECDHE](https://tools.ietf.org/html/rfc7540#ref-TLS-ECDHE))与P-256椭圆曲线(参见： [FIPS186](https://tools.ietf.org/html/rfc7540#ref-FIPS186))。
+
+需要注意的是为了允许连接不支持HTTP/2的服务器，客户端上可能宣传支持黑名单上的密码套件。
+
+这是的服务器用`HTTP/2`黑名单上的密码套件使用`HTTP/1.1`。然而，如果应用协议和加密套件是独立选择的，这可能会导致`HTTP/2`与黑名单上的密码套件进行协商。
