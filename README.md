@@ -33,7 +33,13 @@
 + [ ] 6. Frame Definitions
 + [x] 7. [错误码](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/7-zh-cn.md)
 + [ ] 8. HTTP Message Exchanges
-+ [ ] 9. Additional HTTP Requirements/Considerations
++ [ ] 9. (**翻译中**)[其他HTTP要求/注意事项](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/9-zh-cn.md)
+   - [x] 9.1 [连接管理]()
+   - [x] 9.1.1 [连接复用]()
+   - [x] 9.1.2 [421(误导请求)状态码]()
+   - [ ] 9.2 [使用TLS功能]()
+   - [ ] 9.2.1 [TLS1.2功能]()
+   - [ ] 9.2.2 [TLS1.2加密套件]()
 + [ ] 10. Security Considerations
 + [ ] 11. IANA Considerations
 + [ ] 12. References
