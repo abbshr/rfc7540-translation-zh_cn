@@ -6,7 +6,7 @@
 
 `HTTP/2`的连接是持久性的。 为了获得最佳的性能，在确定与服务器没有进一步的连接必要之前客户端将不会关闭连接（例如：当用户导航到其他特定的网页时这个连接就会关闭），或者直到服务器端关闭连接之前。
 
-客户端不应该给一个给定的主机和端口号打开多个`HTTP/2`连接，其中主机是从一个确定的`URL`衍生，a selected alternative service [ALT-SVC], 或者配置的代理。
+客户端不应该给一个给定的主机和端口号打开多个`HTTP/2`连接，其中这个主机来源于一个选定替代服务([参见：ALT-SVG](https://tools.ietf.org/html/rfc7540#ref-ALT-SVC))或者配置代理的统一资源标识符(URI)。
 
 客户端可以创建额外的连接作为替代，或者取代快要耗尽的可用流标识符空间（[参见：Section 5.1.1](http://tools.ietf.org/html/rfc7540#section-5.1.1))，或者为`TLS`连接刷新密钥，或者替换遇到的错误连接（[参见: Section 5.4.1](http://tools.ietf.org/html/rfc7540#section-5.4.1)）。
 
