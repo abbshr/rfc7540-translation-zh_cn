@@ -4,22 +4,22 @@
 
 **新来的同学请先移步至issue**: https://github.com/abbshr/rfc7540-translation-zh_cn/issues/1
 
-(更新时间2015-9-16)
+(更新时间2015-9-22)
 
 翻译进度:
 
-+ [x] 1. [Instroduction](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/1-zh-cn.md)
++ [x] 1. Instroduction
 + [ ] 2. Overview
 + [ ] 3. Starting HTTP/2
-+ [x] 4. [HTTP帧](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/4-zh-cn.md)
-+ [ ] 5. (**翻译中**) [流与多路复用](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md)
-  - [x] 5.1. [流的状态](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#51-流的状态)
-  - [x] 5.1.1. 流标识符
-  - [x] 5.1.2 流的并发性
-  - [x] 5.2 流控
-  - [x] 5.2.1 流控原则
-  - [x] 5.2.2 合理使用流控
-  - [x] 5.3 流的优先级
++ [x] 4. HTTP帧
++ [ ] 5. (**翻译中**) 流与多路复用
+  - [x] 5.1. 流的状态
+  - [ ] 5.1.1. (**翻译中**) 流标识符
+  - [ ] 5.1.2 流的并发性
+  - [ ] 5.2 流控
+  - [ ] 5.2.1 流控原则
+  - [ ] 5.2.2 恰当使用流控
+  - [ ] 5.3 流的优先级
   - [ ] 5.3.1 流的依赖关系
   - [ ] 5.3.2 依赖权重
   - [ ] 5.3.3 优先级重排
@@ -31,15 +31,9 @@
   - [ ] 5.4.3 连接终止
   - [ ] 5.5 HTTP/2扩展
 + [ ] 6. Frame Definitions
-+ [x] 7. [错误码](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/7-zh-cn.md)
++ [ ] 7. Error Codes
 + [ ] 8. HTTP Message Exchanges
-+ [x] 9. [其他HTTP要求/注意事项](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/9-zh-cn.md)
-   - [x] 9.1 [连接管理]()
-   - [x] 9.1.1 [连接复用]()
-   - [x] 9.1.2 [421(误导请求)状态码]()
-   - [x] 9.2 [使用TLS功能]()
-   - [x] 9.2.1 [TLS1.2功能]()
-   - [x] 9.2.2 [TLS1.2加密套件]()
++ [ ] 9. Additional HTTP Requirements/Considerations
 + [ ] 10. Security Considerations
 + [ ] 11. IANA Considerations
 + [ ] 12. References
