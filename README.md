@@ -4,6 +4,8 @@
 
 **新来的同学请先移步至issue**: https://github.com/abbshr/rfc7540-translation-zh_cn/issues/1
 
+**请遵循"fork & pull request"协作模型, 不要直接commit到原始仓库**
+
 (更新时间2015-9-22)
 
 翻译进度:
