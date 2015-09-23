@@ -25,7 +25,7 @@
   - [x] 5.3 [流的优先级](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#53-流的优先级)
   - [x] 5.3.1 [流的依赖关系](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#531-流的依赖关系)
   - [x] 5.3.2 [依赖权重](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#532-依赖权重)
-  - [ ] 5.3.3 [优先级重排](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#533-优先级重排)
+  - [ ] 5.3.3 [优先级重排](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#533-优先级依赖重排)
   - [ ] 5.3.4 [优先级状态管理](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#534-优先级状态管理)
   - [ ] 5.3.5 [默认优先级](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#535-默认优先级)
   - [ ] 5.4 [错误处理](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#54-错误处理)
