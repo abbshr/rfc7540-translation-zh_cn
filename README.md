@@ -15,7 +15,10 @@
 + [ ] 2. Overview
 + [ ] 3. Starting HTTP/2
 + [x] 4. [HTTP帧](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/4-zh-cn.md)
-+ [ ] 5.  [流与多路复用](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md)
+  - [x] 4.1. [帧格式](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/4-zh-cn.md#41-帧格式)
+  - [x] 4.2. [帧大小](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/4-zh-cn.md#42-帧大小)
+  - [x] 4.3. [Header压缩和解压](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/4-zh-cn.md#43-header压缩和解压)
++ [x] 5.  [流与多路复用](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md)
   - [x] 5.1. [流的状态](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#51-流的状态)
   - [x] 5.1.1. [流标识符](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#511-stream标识符)
   - [x] 5.1.2 [流的并发性](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#512-流的并发性)
