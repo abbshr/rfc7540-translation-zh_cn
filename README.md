@@ -32,7 +32,7 @@
   - [x] 5.4.1 [连接错误](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#541-连接错误处理)
   - [x] 5.4.2 [流错误](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#542-流错误处理)
   - [x] 5.4.3 [连接终止](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#543-连接终止)
-  - [ ] 5.5 [HTTP/2扩展](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#55-http2扩展)
+  - [x] 5.5 [HTTP/2扩展](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#55-http2扩展)
 + [ ] 6. Frame Definitions
 + [x] 7. [错误码](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/7-zh-cn.md)
 + [ ] 8. HTTP Message Exchanges
