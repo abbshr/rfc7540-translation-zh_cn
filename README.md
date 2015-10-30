@@ -7,7 +7,7 @@
 + 请遵循"fork & pull request"协作模型, 不要直接commit到原始仓库.
 + 发起pull request之前请fetch/pull检查与upstream分支的差异获取最近更新.
 
-(更新时间2015-9-23)
+(更新时间2015-10-21)
 
 翻译进度:
 
