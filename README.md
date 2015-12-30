@@ -7,13 +7,19 @@
 + 请遵循"fork & pull request"协作模型, 不要直接commit到原始仓库.
 + 发起pull request之前请fetch/pull检查与upstream分支的差异获取最近更新.
 
-(更新时间2015-10-21)
+(更新时间2015-12-30)
 
 翻译进度:
 
 + [x] 1. [介绍](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/1-zh-cn.md)
 + [x] 2. [概览](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/2-zh-cn.md)
-+ [ ] 3. Starting HTTP/2
++ [x] 3. [开始HTTP/2](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/3-zh-cn.md)
+  - [x] 3.1. [HTTP/2版本标识](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/3-zh-cn.md#31-http2-version-identification--http2版本标识)
+  - [x] 3.2. [为"http" URIs启用HTTP/2协议](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/3-zh-cn.md#32-starting-http2-for-http-uris--为http-uris启用http2协议)
+  - [x] 3.2.1. [HTTP2-Settings头部字段](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/3-zh-cn.md#321-http2-settings-header-field--http2-settings首部字段)
+  - [x] 3.3. [为"https" URIs启用HTTP/2协议](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/3-zh-cn.md#33-starting-http2-for-https-uris--为https-uris启用http2协议)
+  - [x] 3.4. [先验下启用HTTP/2](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/3-zh-cn.md#34-starting-http2-with-prior-knowledge--先验下启用http2)
+  - [x] 3.5. [HTTP/2连接序言](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/3-zh-cn.md#35-http2-connection-preface--http2连接前奏)
 + [x] 4. [HTTP帧](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/4-zh-cn.md)
   - [x] 4.1. [帧格式](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/4-zh-cn.md#41-帧格式)
   - [x] 4.2. [帧大小](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/4-zh-cn.md#42-帧大小)
@@ -46,7 +52,10 @@
    - [x] 9.2 [使用TLS功能](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/9-zh-cn.md#92-使用tls功能)
    - [x] 9.2.1 [TLS1.2功能](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/9-zh-cn.md#921-tls-12功能)
    - [x] 9.2.2 [TLS1.2加密套件](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/9-zh-cn.md#922-tls-12加密套件)
-+ [ ] 10. Security Considerations
++ [ ] 10. [安全性考虑](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/10-zh-cn.md#10-安全性考虑)
+  - [x] 10.1. [服务器授权](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/10-zh-cn.md#101-服务器授权)
+  - [x] 10.2. [跨协议攻击](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/10-zh-cn.md#102-跨协议攻击)
+  - [x] 10.3. [伪装中介攻击](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/10-zh-cn.md#103-伪装中介攻击)
 + [ ] 11. IANA Considerations
 + [ ] 12. References
 + [ ] Appendix A. TLS 1.2 Cipher Suite Black List
