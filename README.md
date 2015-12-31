@@ -7,12 +7,14 @@
 + 请遵循"fork & pull request"协作模型, 不要直接commit到原始仓库.
 + 发起pull request之前请fetch/pull检查与upstream分支的差异获取最近更新.
 
-(更新时间2015-12-30)
+(更新时间2015-12-31)
 
 翻译进度:
 
 + [x] 1. [介绍](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/1-zh-cn.md)
 + [x] 2. [概览](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/2-zh-cn.md)
+  - [x] 2.1. [文档结构](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/2-zh-cn.md#21-文档结构)
+  - [x] 2.2. [约定与术语](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/2-zh-cn.md#22-约定与术语)
 + [x] 3. [开始HTTP/2](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/3-zh-cn.md)
   - [x] 3.1. [HTTP/2版本标识](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/3-zh-cn.md#31-http2-version-identification--http2版本标识)
   - [x] 3.2. [为"http" URIs启用HTTP/2协议](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/3-zh-cn.md#32-starting-http2-for-http-uris--为http-uris启用http2协议)
