@@ -49,16 +49,16 @@ HTTP/2使用与HTTP/1.1相同的"http"和"https"URL模式，相同的默认端�
 > ```
 
 事先不知道下一跳是否支持HTTP/2的客户端在发起"http"URI请求时，使用HTTP的Upgrade机制(*[RFC7230]*的6.7节)。客户端做法是：发起一个包含值为"h2c"的Upgrade首部字段的HTTP/1.1请求。该请求还必须明确包含一个HTTP2-Settings(3.2.1节)首部字段。
->
-> 例如：
->
-> ```
-> GET / HTTP/1.1
-> Host: server.example.com
-> Connection: Upgrade, HTTP2-Settings
-> Upgrade: h2c
-> HTTP2-Settings: <base64url encoding of HTTP/2 SETTINGS payload>
-> ```
+
+例如：
+
+```
+GET / HTTP/1.1
+Host: server.example.com
+Connection: Upgrade, HTTP2-Settings
+Upgrade: h2c
+HTTP2-Settings: <base64url encoding of HTTP/2 SETTINGS payload>
+```
 
 > Requests that contain a payload body MUST be sent in their entirety before the client can send HTTP/2 frames. This means that a large request can block the use of the connection until it is completely sent.
 
@@ -77,14 +77,14 @@ HTTP/2使用与HTTP/1.1相同的"http"和"https"URL模式，相同的默认端�
 > ...
 > ```
 
-> 不支持HTTP/2的服务端响应请求时可以忽略Upgrade首部字段：
->
-> ```
-> HTTP/1.1 200 OK
-> Content-Length: 243
-> Content-Type: text/html
-> ...
-> ```
+不支持HTTP/2的服务端响应请求时可以忽略Upgrade首部字段：
+
+```
+HTTP/1.1 200 OK
+Content-Length: 243
+Content-Type: text/html
+...
+```
 
 > A server MUST ignore an "h2" token in an Upgrade header field. Presence of a token with "h2" implies HTTP/2 over TLS, which is instead negotiated as described in Section 3.3.
 
@@ -102,17 +102,17 @@ HTTP/2使用与HTTP/1.1相同的"http"和"https"URL模式，相同的默认端�
 > [ HTTP/2 connection ...
 > ```
 
-> 支持HTTP/2的服务端以返回101(Switching Protocols)响应的方式表示接受升级协议的请求。结束101响应的空行之后，服务端可以开始发送HTTP/2帧。这些帧必须包含一个对初始升级请求的响应。
->
-> 例如：
->
-> ```
-> HTTP/1.1 101 Switching Protocols
-> Connection: Upgrade
-> Upgrade: h2c
->
-> [ HTTP/2 connection ...
-> ```
+支持HTTP/2的服务端以返回101(Switching Protocols)响应的方式表示接受升级协议的请求。结束101响应的空行之后，服务端可以开始发送HTTP/2帧。这些帧必须包含一个对初始升级请求的响应。
+
+例如：
+
+```
+HTTP/1.1 101 Switching Protocols
+Connection: Upgrade
+Upgrade: h2c
+
+[ HTTP/2 connection ...
+```
 
 > The first HTTP/2 frame sent by the server MUST be a server connection preface (Section 3.5) consisting of a SETTINGS frame (Section 6.5). Upon receiving the 101 response, the client MUST send a connection preface (Section 3.5), which includes a SETTINGS frame.
 
@@ -130,10 +130,10 @@ HTTP/2使用与HTTP/1.1相同的"http"和"https"URL模式，相同的默认端�
 > ```
 
 从HTTP/1.1升级到HTTP/2的请求必须确切地包含一个HTTP2-Settings首部字段。HTTP2-Settings首部字段是一个连接专用的首部字段，它包含管理HTTP/2连接的参数，假设服务端会接受升级请求。
->
-> ```
-> HTTP2-Settings    = token68
-> ```
+
+```
+HTTP2-Settings    = token68
+```
 
 > A server MUST NOT upgrade the connection to HTTP/2 if this header field is not present or if more than one is present. A server MUST NOT send this header field.
 
@@ -193,13 +193,13 @@ HTTP2-Settings首部字段的值是SETTINGS帧(6.5节)的有效载荷，被编�
 > ```
 > That is, the connection preface starts with the string PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n). This sequence MUST be followed by a SETTINGS frame (Section 6.5), which MAY be empty. The client sends the client connection preface immediately upon receipt of a 101 (Switching Protocols) response (indicating a successful upgrade) or as the first application data octets of a TLS connection. If starting an HTTP/2 connection with prior knowledge of server support for the protocol, the client connection preface is sent upon connection establishment.
 
-> 客户端连接前奏以一个24字节的序列开始，用十六进制表示为：
->
-> ```
-> 0x505249202a20485454502f322e300d0a0d0a534d0d0a0d0a
-> ```
->
-> 即，连接前奏以字符串"PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"开始。这个序列后面必须跟一个可以为空的SETTINGS帧(6.5节)。客户端一收到101(Switching Protocols)响应(表示成功升级)后，就发送客户端连接前奏，或者作为TLS连接的第一批应用数据字节。如果在预先知道服务端支持HTTP/2的情况下启用HTTP/2连接，客户端连接前奏在连接建立时发送。
+客户端连接前奏以一个24字节的序列开始，用十六进制表示为：
+
+```
+0x505249202a20485454502f322e300d0a0d0a534d0d0a0d0a
+```
+
+即，连接前奏以字符串"PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"开始。这个序列后面必须跟一个可以为空的SETTINGS帧(6.5节)。客户端一收到101(Switching Protocols)响应(表示成功升级)后，就发送客户端连接前奏，或者作为TLS连接的第一批应用数据字节。如果在预先知道服务端支持HTTP/2的情况下启用HTTP/2连接，客户端连接前奏在连接建立时发送。
 
 > Note: The client connection preface is selected so that a large proportion of HTTP/1.1 or HTTP/1.0 servers and intermediaries do not attempt to process further frames. Note that this does not address the concerns raised in [TALKING].
 
