@@ -1,11 +1,11 @@
 ## 3. Starting HTTP/2 / 开始HTTP/2
 > An HTTP/2 connection is an application-layer protocol running on top of a TCP connection ([TCP]). The client is the TCP connection initiator.
 
-HTTP/2是运行在TCP连接之上的应用层协议。客户端是TCP连接的发起者。
+HTTP/2是一个运行在TCP连接之上的应用层协议。客户端是TCP连接的发起者。
 
 > HTTP/2 uses the same "http" and "https" URI schemes used by HTTP/1.1. HTTP/2 shares the same default port numbers: 80 for "http" URIs and 443 for "https" URIs. As a result, implementations processing requests for target resource URIs like http://example.org/foo or https://example.com/bar are required to first discover whether the upstream server (the immediate peer to which the client wishes to establish a connection) supports HTTP/2.
 
-HTTP/2使用与HTTP/1.1相同的URI方案"http"和"https"，相同的默认端口号："http"的80端口和"https"的443端口。因此，在处理对例如http://example.org/foo 或 https://example.com/bar 目标资源URIs的请求前，需要首先确定上游服务端(当前客户端希望直接与之建立连接的对端)是否支持HTTP/2。
+HTTP/2使用与HTTP/1.1相同的"http"和"https"URL模式，相同的默认端口号："http"的80端口和"https"的443端口。因此，在处理对例如http://example.org/foo 或 https://example.com/bar 目标资源URIs的请求前，需要首先确定上游服务端(当前客户端希望直接与之建立连接的对端)是否支持HTTP/2。
 
 > The means by which support for HTTP/2 is determined is different for "http" and "https" URIs. Discovery for "http" URIs is described in Section 3.2. Discovery for "https" URIs is described in Section 3.3.
 
@@ -13,18 +13,18 @@ HTTP/2使用与HTTP/1.1相同的URI方案"http"和"https"，相同的默认端�
 
 ### 3.1 HTTP/2 Version Identification / HTTP/2版本标识
 > The protocol defined in this document has two identifiers.
-> 
+>
 > * The string "h2" identifies the protocol where HTTP/2 uses Transport Layer Security (TLS) [TLS12]. This identifier is used in the TLS application-layer protocol negotiation (ALPN) extension [TLS-ALPN] field and in any place where HTTP/2 over TLS is identified.
-> 
+>
 > 	The "h2" string is serialized into an ALPN protocol identifier as the two-octet sequence: 0x68, 0x32.
 > * The string "h2c" identifies the protocol where HTTP/2 is run over cleartext TCP. This identifier is used in the HTTP/1.1 Upgrade header field and in any place where HTTP/2 over TCP is identified.
-> 
+>
 >  The "h2c" string is reserved from the ALPN identifier space but describes a protocol that does not use TLS.
 
 本文档定义的协议有两个标识符：
 
-* 字符串"h2"表示HTTP/2协议使用了TLS*[TLS12]*。该标识符用在TLS-ALPN*[TLS-ALPN]*的扩展字段，以及任何HTTP/2使用TLS的场合。
-	
+* 字符串"h2"表示HTTP/2协议使用了TLS(Transport Layer Security)*[TLS12]*。该标识符用在TLS-ALPN(application-layer protocol negotiation)*[TLS-ALPN]*的扩展字段，以及任何在TLS之上运行HTTP/2的场合。
+
   "h2"字符串序列化到ALPN协议里变成了两个字节的序列：0x68，0x32。
 
 * 字符串"h2c"表示HTTP/2协议运行在明文TCP上。该标识符用在HTTP/1.1的Upgrade首部字段，以及任何在TCP之上运行HTTP/2的场合。
@@ -37,9 +37,9 @@ HTTP/2使用与HTTP/1.1相同的URI方案"http"和"https"，相同的默认端�
 
 ### 3.2 Starting HTTP/2 for "http" URIs / 为"http" URIs启用HTTP/2协议
 > A client that makes a request for an "http" URI without prior knowledge about support for HTTP/2 on the next hop uses the HTTP Upgrade mechanism (Section 6.7 of [RFC7230]). The client does so by making an HTTP/1.1 request that includes an Upgrade header field with the "h2c" token. Such an HTTP/1.1 request MUST include exactly one HTTP2-Settings (Section 3.2.1) header field.
-> 
+>
 > For example:
-> 
+>
 > ```
 > GET / HTTP/1.1
 > Host: server.example.com
@@ -48,7 +48,7 @@ HTTP/2使用与HTTP/1.1相同的URI方案"http"和"https"，相同的默认端�
 > HTTP2-Settings: <base64url encoding of HTTP/2 SETTINGS payload>
 > ```
 
-事先不知道下一跳是否支持HTTP/2的客户端，使用HTTP的Upgrade机制(*[RFC7230]*的6.7节)发起"http"URI请求。其做法是：客户端先发起HTTP/1.1请求，该请求包含值为"h2c"的Upgrade首部字段，还必须包含一个HTTP2-Settings(3.2.1节)首部字段。
+事先不知道下一跳是否支持HTTP/2的客户端在发起"http"URI请求时，使用HTTP的Upgrade机制(*[RFC7230]*的6.7节)。客户端做法是：发起一个包含值为"h2c"的Upgrade首部字段的HTTP/1.1请求。该请求还必须明确包含一个HTTP2-Settings(3.2.1节)首部字段。
 
 例如：
 
@@ -62,14 +62,14 @@ HTTP2-Settings: <base64url encoding of HTTP/2 SETTINGS payload>
 
 > Requests that contain a payload body MUST be sent in their entirety before the client can send HTTP/2 frames. This means that a large request can block the use of the connection until it is completely sent.
 
-在客户端能发送HTTP/2帧之前，包含负载的请求必须全部被发送。这意味着一个大的请求能阻塞连接的使用，直到其全部被发送完毕。
+在客户端能发送HTTP/2帧之前，包含有效载荷的请求必须被全部发送。这意味着一个大的请求能阻塞连接的使用，直到其被全部发送完毕。
 
 > If concurrency of an initial request with subsequent requests is important, an OPTIONS request can be used to perform the upgrade to HTTP/2, at the cost of an additional round trip.
 
-如果一个初始请求的后续并发请求很重要，那么可以使用OPTIONS请求来执行升级到HTTP/2的操作，代价是一个额外的往返。
+如果一个有后续请求的初始请求的并发很重要，那么可以使用OPTIONS请求来执行升级到HTTP/2的操作，代价是一个额外的往返。
 
 > A server that does not support HTTP/2 can respond to the request as though the Upgrade header field were absent:
-> 
+>
 > ```
 > HTTP/1.1 200 OK
 > Content-Length: 243
@@ -77,7 +77,7 @@ HTTP2-Settings: <base64url encoding of HTTP/2 SETTINGS payload>
 > ...
 > ```
 
-不支持HTTP/2的服务端对请求进行响应时可以忽略Upgrade首部字段：
+不支持HTTP/2的服务端响应请求时可以忽略Upgrade首部字段：
 
 ```
 HTTP/1.1 200 OK
@@ -88,21 +88,21 @@ Content-Type: text/html
 
 > A server MUST ignore an "h2" token in an Upgrade header field. Presence of a token with "h2" implies HTTP/2 over TLS, which is instead negotiated as described in Section 3.3.
 
-服务端必须忽略值为"h2"的Upgrade首部字段。"h2"字段表示HTTP/2使用了TLS，其协商方法在3.3节中描述。
+服务端必须忽略值为"h2"的Upgrade首部字段。"h2"标识表示HTTP/2使用了TLS，其协商方法在3.3节中描述。
 
 > A server that supports HTTP/2 accepts the upgrade with a 101 (Switching Protocols) response. After the empty line that terminates the 101 response, the server can begin sending HTTP/2 frames. These frames MUST include a response to the request that initiated the upgrade.
-> 
+>
 > For example:
-> 
+>
 > ```
 > HTTP/1.1 101 Switching Protocols
 > Connection: Upgrade
 > Upgrade: h2c
-> 
+>
 > [ HTTP/2 connection ...
 > ```
 
-支持HTTP/2的服务端返回101(Switching Protocols)响应，表示接受升级协议的请求。结束101响应的空行之后，服务端可以开始发送HTTP/2帧。这些帧必须包含一个对升级请求的响应。
+支持HTTP/2的服务端以返回101(Switching Protocols)响应的方式表示接受升级协议的请求。结束101响应的空行之后，服务端可以开始发送HTTP/2帧。这些帧必须包含一个对初始升级请求的响应。
 
 例如：
 
@@ -120,16 +120,16 @@ Upgrade: h2c
 
 > The HTTP/1.1 request that is sent prior to upgrade is assigned a stream identifier of 1 (see Section 5.1.1) with default priority values (Section 5.3.5). Stream 1 is implicitly "half-closed" from the client toward the server (see Section 5.1), since the request is completed as an HTTP/1.1 request. After commencing the HTTP/2 connection, stream 1 is used for the response.
 
-升级之前发送的HTTP/1.1请求被分配一个流标识符1(5.1.1节)，并被赋予默认优先级值(5.3.5节)。流1暗示从客户端到服务端(5.1节)是半关闭的，因为该请求作为HTTP/1.1请求已经完成了。HTTP/2连接开始后，流1用于响应。
+升级之前发送的HTTP/1.1请求被分配了一个有着默认优先级值(5.3.5节)的流标识符1(5.1.1节)。流1暗示从客户端到服务端(5.1节)是半关闭的，因为该请求作为HTTP/1.1请求已经完成了。HTTP/2连接开始后，流1用于响应。
 
 #### 3.2.1 HTTP2-Settings Header Field / HTTP2-Settings首部字段
 > A request that upgrades from HTTP/1.1 to HTTP/2 MUST include exactly one HTTP2-Settings header field. The HTTP2-Settings header field is a connection-specific header field that includes parameters that govern the HTTP/2 connection, provided in anticipation of the server accepting the request to upgrade.
-> 
+>
 > ```
 > HTTP2-Settings    = token68
 > ```
 
-从HTTP/1.1升级到HTTP/2的请求必须确切地包含一个HTTP2-Settings首部字段。HTTP2-Settings首部字段是一个连接专用的首部字段，它包含管理HTTP/2连接的参数，前提是假设服务端会接受升级请求。
+从HTTP/1.1升级到HTTP/2的请求必须确切地包含一个HTTP2-Settings首部字段。HTTP2-Settings首部字段是一个连接专用的首部字段，它包含管理HTTP/2连接的参数，假设服务端会接受升级请求。
 
 ```
 HTTP2-Settings    = token68
@@ -141,7 +141,7 @@ HTTP2-Settings    = token68
 
 > The content of the HTTP2-Settings header field is the payload of a SETTINGS frame (Section 6.5), encoded as a base64url string (that is, the URL- and filename-safe Base64 encoding described in Section 5 of [RFC4648], with any trailing '=' characters omitted). The ABNF [RFC5234] production for token68 is defined in Section 2.1 of [RFC7235].
 
-HTTP2-Settings首部字段的值是SETTINGS帧(6.5节)的有效载荷被编码成的base64url串(即，*[RFC4648]*第5节描述的URL和文件名安全Base64编码，忽略任何'='字符)。ABNF*[RFC5234]*产生token68在*[RFC7235]*2.1节有定义。
+HTTP2-Settings首部字段的值是SETTINGS帧(6.5节)的有效载荷，被编码成了base64url串(即，*[RFC4648]*第5节描述的URL和文件名安全Base64编码，忽略任何结尾'='字符)。ABNF*[RFC5234]*产生token68在*[RFC7235]*2.1节有定义。
 
 > Since the upgrade is only intended to apply to the immediate connection, a client sending the HTTP2-Settings header field MUST also send HTTP2-Settings as a connection option in the Connection header field to prevent it from being forwarded (see Section 6.1 of [RFC7230]).
 
@@ -187,7 +187,7 @@ HTTP2-Settings首部字段的值是SETTINGS帧(6.5节)的有效载荷被编码�
 在HTTP/2连接中，要求两端都要发送一个连接前奏，作为对所使用协议的最终确认，并确定HTTP/2连接的初始设置。客户端和服务端各自发送不同的连接前奏。
 
 > The client connection preface starts with a sequence of 24 octets, which in hex notation is:
-> 
+>
 > ```
 > 0x505249202a20485454502f322e300d0a0d0a534d0d0a0d0a
 > ```
@@ -207,15 +207,15 @@ HTTP2-Settings首部字段的值是SETTINGS帧(6.5节)的有效载荷被编码�
 
 > The server connection preface consists of a potentially empty SETTINGS frame (Section 6.5) that MUST be the first frame the server sends in the HTTP/2 connection.
 
-服务端连接前奏包含一个可能为空的SETTINGS帧(6.5节)，它必须由服务端在HTTP/2连接中首先发送。
+服务端连接前奏包含一个可能为空的SETTINGS帧(6.5节)，它必须是服务端在HTTP/2连接中发送的第一个帧。
 
 > The SETTINGS frames received from a peer as part of the connection preface MUST be acknowledged (see Section 6.5.3) after sending the connection preface.
 
-在发送完本端的连接前奏之后，必须对收到的作为对端连接前奏一部分的SETTINGS帧进行确认。
+在发送完本端的连接前奏之后，必须对从对端收到的作为连接前奏一部分的SETTINGS帧进行确认。
 
 > To avoid unnecessary latency, clients are permitted to send additional frames to the server immediately after sending the client connection preface, without waiting to receive the server connection preface. It is important to note, however, that the server connection preface SETTINGS frame might include parameters that necessarily alter how a client is expected to communicate with the server. Upon receiving the SETTINGS frame, the client is expected to honor any parameters established. In some configurations, it is possible for the server to transmit SETTINGS before the client sends additional frames, providing an opportunity to avoid this issue.
 
-为了避免不必要的延迟，允许客户端发送完连接前奏后就立即向服务端发送其他的帧，而不必等待服务端的连接前奏。不过需要注意的是，服务端连接前奏SETTINGS帧可能包含一些期望客户端如何与服务端进行通信所必须修改的参数。在收到这些SETTINGS帧以后，客户端应当遵守所有设置的参数。在某些配置中，服务端是可以在客户端发送额外的帧之前传送SETTINGS帧的，这样就避免前边所说的问题。
+为了避免不必要的延迟，允许客户端发送完连接前奏后就立即向服务端发送其他的帧，而不必等待服务端的连接前奏。不过需要注意的是，服务端连接前奏的SETTINGS帧可能包含一些期望客户端如何与服务端进行通信所必须修改的参数。在收到这些SETTINGS帧以后，客户端应当遵守所有设置的参数。在某些配置中，服务端是可以在客户端发送额外的帧之前传送SETTINGS帧的，这样就避免前边所说的问题。
 
 > Clients and servers MUST treat an invalid connection preface as a connection error (Section 5.4.1) of type PROTOCOL_ERROR. A GOAWAY frame (Section 6.8) MAY be omitted in this case, since an invalid preface indicates that the peer is not using HTTP/2.
 
