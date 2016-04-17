@@ -1,5 +1,5 @@
 ## HTTP Message Exchanges / HTTP消息交换
-*译者注：能力有限，在不能确定的译文中，使用\*\* \*\*语法着重标出，校对者请留意。*
+*译者注：能力有限，在不能确定的译文中，使用* \*\* \*\* *语法着重标出，校对者请留意。*
 
 
 > HTTP/2 is intended to be as compatible as possible with current uses of HTTP. This means that, from the application perspective, the features of the protocol are largely unchanged. To achieve this, all request and response semantics are preserved, although the syntax of conveying those semantics has changed.
@@ -33,7 +33,7 @@ HTTP/2致力于尽可能与当前使用的HTTP兼容。这意味着，从应用�
 
 > Other frames (from any stream) MUST NOT occur between the HEADERS frame and any CONTINUATION frames that might follow.
 
-其余的的帧（来自任何流）不能在HEADERS帧和可能跟随HEADERS帧的CONTINUATION帧之间出现
+其余的帧（来自任何流）不能在HEADERS帧和可能跟随HEADERS帧的CONTINUATION帧之间出现。
 
 > HTTP/2 uses DATA frames to carry message payloads. The "chunked" transfer encoding defined in Section 4.1 of [RFC7230] MUST NOT be used in HTTP/2.
 
@@ -54,17 +54,17 @@ HTTP/2使用DATA帧携带消息载荷。[RFC7230]中4.1节定义的"区块"转�
 
 >An HTTP response is complete after the server sends -- or the client receives -- a frame with the END_STREAM flag set (including any CONTINUATION frames needed to complete a header block). A server can send a complete response prior to the client sending an entire request if the response does not depend on any portion of the request that has not been sent and received. When this is true, a server MAY request that the client abort transmission of a request without error by sending a RST_STREAM with an error code of NO_ERROR after sending a complete response (i.e., a frame with the END_STREAM flag). Clients MUST NOT discard responses as a result of receiving such a RST_STREAM, though clients can always discard responses at their discretion for other reasons.
 
-一个HTTP响应在服务器发送或者客户端收到一个有END_STREAM标识的帧（包括任何需要用来完成头部块的CONTINUATION帧）完成。如果响应不依赖于任何还没被发送或者接收的请求部分，服务端可以完整的发送响应在客户端发送完整的请求之前。当这成立时，服务端可能请求客户端无错误的放弃请求传输，通过在发送完整响应（类如，一个有END_STREAM标志的帧）之后发送一个错误码为NO_ERROR的RST_STREAM。
+一个HTTP响应在服务器发送或者客户端收到一个有END_STREAM标识的帧（包括任何需要用来完成头部块的CONTINUATION帧）完成。如果响应不依赖于还没被发送或者接收的请求的任何部分，在客户端发送完整的请求之前服务端可以完整的发送响应。当这成立时，服务端可能请求客户端无错误的放弃请求传输，通过在发送完整响应（类如，一个有END_STREAM标志的帧）之后发送一个错误码为NO_ERROR的RST_STREAM。
 
 
-### 8.1.1. Upgrading from HTTP/2 / 从HTTP/2升级
+#### 8.1.1. Upgrading from HTTP/2 / 从HTTP/2升级
 > HTTP/2 removes support for the 101 (Switching Protocols) informational status code ([RFC7231], Section 6.2.2).
 The semantics of 101 (Switching Protocols) aren't applicable to a multiplexed protocol. Alternative protocols are able to use the same mechanisms that HTTP/2 uses to negotiate their use (see Section 3).
 
 HTTP/2 移除了对101（协议转换）信息状态码的支持([RFC7231], Section 6.2.2)。
 101（协议转换）不适用多路协议。**替代的协议可能使用和HTTP/2相同的机制，协商它们的使用。**
 
-### 8.1.2. HTTP Header Fields / HTTP头部字段
+#### 8.1.2. HTTP Header Fields / HTTP头部字段
 >HTTP header fields carry information as a series of key-value pairs. For a listing of registered HTTP headers, see the "Message Header Field" registry maintained at <https://www.iana.org/assignments/ message-headers>.
 
 HTTP头部字段携带了一系列键值对信息。已注册的HTTP头列表，可以在"消息头部字段"注册处看到，维持在<https://www.iana.org/assignments/message-headers>。
@@ -73,7 +73,7 @@ HTTP头部字段携带了一系列键值对信息。已注册的HTTP头列表，
 
 就像HTTP/1.x，头部字段名称是大小写不敏感的ASCII字符串。然而，头部字段名称必须在HTTP/2编码前转换为小写字母。包含大写头部字段名称的请求或者响应必须被当作是不规范的。
 
-### 8.1.2.1. Pseudo-Header Fields 伪头部字段
+##### 8.1.2.1. Pseudo-Header Fields 伪头部字段
 >While HTTP/1.x used the message start-line (see [RFC7230], Section 3.1) to convey the target URI, the method of the request, and the status code for the response, HTTP/2 uses special pseudo-header fields beginning with ':' character (ASCII 0x3a) for this purpose.
 
 HTTP/1.x 使用消息开始行（see [RFC7230], Section 3.1）传递目标URL，请求方法，响应状态码，HTTP/2使用特殊的以":"开始的伪头部字段来达到这个目的。
@@ -90,7 +90,7 @@ HTTP/1.x 使用消息开始行（see [RFC7230], Section 3.1）传递目标URL，
 
 所有的在头部块中的伪头部字段必须出现在**常规**的头部字段之前。任何包含伪头部字段出现在常规头部字段之后的请求或者响应必须被当作是不规范的。
 
-### 8.1.2.2. Connection-Specific Header Fields / Connection-Specific头部字段
+##### 8.1.2.2. Connection-Specific Header Fields / Connection-Specific头部字段
 >HTTP/2 does not use the Connection header field to indicate connection-specific header fields; in this protocol, connection-specific metadata is conveyed by other means. An endpoint MUST NOT generate an HTTP/2 message containing connection-specific header fields; any message containing connection-specific header fields MUST be treated as malformed (Section 8.1.2.6).
 
 HTTP/2不使用Connection说明头部字段说明connection-specific头部字段；在协议中，connection-specific元信息被使用其他方式传递。端系统不能产生包含连接-说明头部字段的HTTP/2消息；任何包含connection-specific头部字段的消息必须被当作成不规范的(Section 8.1.2.6)。
@@ -107,7 +107,7 @@ HTTP/2不使用Connection说明头部字段说明connection-specific头部字段
 
 注意：HTTP/2无意支持升级到其他协议。第三节介绍的握手方法被认为是有效的来协商使用替代协议。
 
-### 8.1.2.3. Request Pseudo-Header Fields / 请求伪头部字段
+##### 8.1.2.3. Request Pseudo-Header Fields / 请求伪头部字段
 >The following pseudo-header fields are defined for HTTP/2 requests:
 - The ":method" pseudo-header field includes the HTTP method ([RFC7231], Section 4).
 - The ":scheme" pseudo-header field includes the scheme portion of the target URI ([RFC3986], Section 3.1).
@@ -133,7 +133,7 @@ This pseudo-header field MUST NOT be empty for "http" or "https" URIs; "http" or
 
 HTTP/2没有定义一个携带包含在HTTP/1.1请求行中的版本标识符的方法。
 
-### 8.1.2.4. Response Pseudo-Header Fields / 响应伪头部字段
+##### 8.1.2.4. Response Pseudo-Header Fields / 响应伪头部字段
 > For HTTP/2 responses, a single ":status" pseudo-header field is defined that carries the HTTP status code field (see [RFC7231], Section 6). This pseudo-header field MUST be included in all responses; otherwise, the response is malformed (Section 8.1.2.6).
 
 对于HTTP/2响应，一个":status"伪头部字段被定义来携带HTTP状态码字段(see [RFC7231], Section 6)。这个伪头部字段必须被所有的响应包含；否则，响应是不规范的(Section 8.1.2.6).
@@ -142,7 +142,7 @@ HTTP/2没有定义一个携带包含在HTTP/1.1请求行中的版本标识符的
 
 HTTP/2没有定义携带包含在HTTP/1.1状态行中的版本或原因解释的方法。
 
-### 8.1.2.5. Compressing the Cookie Header Field / 压缩Cookie头部字段
+##### 8.1.2.5. Compressing the Cookie Header Field / 压缩Cookie头部字段
 > The Cookie header field [COOKIE] uses a semi-colon (";") to delimit cookie-pairs (or "crumbs"). This header field doesn't follow the list construction rules in HTTP (see [RFC7230], Section 3.2.2), which prevents cookie-pairs from being separated into different name-value pairs. This can significantly reduce compression efficiency as individual cookie-pairs are updated.
 
 Cookie头部字段[COOKIE]使用分号"；"分割cookie对（或 "crumbs"）。这个头部字段没有遵循防止cookie-pairs被分割到不同的键值对的HTTP列表构造法则(see [RFC7230], Section 3.2.2)。这可以显著地提升了压缩效率当单独的cookie-pairs被更新时。
@@ -162,7 +162,7 @@ cookie: a=b<br>
 cookie: c=d<br>
 cookie: e=f
 
-### 8.1.2.6. Malformed Requests and Responses / 不规范的请求和响应
+##### 8.1.2.6. Malformed Requests and Responses / 不规范的请求和响应
 > A malformed request or response is one that is an otherwise valid sequence of HTTP/2 frames but is invalid due to the presence of extraneous frames, prohibited header fields, the absence of mandatory header fields, or the inclusion of uppercase header field names.
 
 一个不规范的请求或者响应是一个有效的HTTP/2帧序列，但是因为额外的帧，禁止的头部字段，缺少强制性头部字段，或者包含大写头部字段名字而无效。
@@ -177,9 +177,9 @@ cookie: e=f
 
 > For malformed requests, a server MAY send an HTTP response prior to closing or resetting the stream. Clients MUST NOT accept a malformed response. Note that these requirements are intended to protect against several types of common attacks against HTTP; they are deliberately strict because being permissive can expose implementations to these vulnerabilities.
 
-对一个不规范的请求，在关闭或者充值流之前服务端可能发送HTTP响应。客户端不能接收不规范的响应。注意这些要求是为了防止几种类型的常见HTTP攻击；他们是故意的如此严格因为宽松可能使这些漏洞被揭发实现。
+对一个不规范的请求，在关闭或者重置流之前服务端可能发送HTTP响应。客户端不能接收不规范的响应。注意这些要求是为了防止几种类型的常见HTTP攻击；他们是故意的如此严格，因为宽松可能使这些漏洞被揭发实现。
 
-### 8.1.3. Examples / 例子
+#### 8.1.3. Examples / 例子
 > This section shows HTTP/1.1 requests and responses, with illustrations of equivalent HTTP/2 requests and responses.
 
 这部分展示了一些有响应HTTP/2请求和响应的HTTP/1.1请求和响应。
@@ -264,7 +264,7 @@ Content-Length: 123                + END_HEADERS
 > Trailing header fields are sent as a header block after both the request or response header block and all the DATA frames have been sent. The HEADERS frame starting the trailers header block has the END_STREAM flag set.
 The following example includes both a 100 (Continue) status code, which is sent in response to a request containing a "100-continue" token in the Expect header field, and trailing header fields:
 
-Trailing头部字段在请求和响应头部块以及所有的DATA帧传输完成之后以头部块的形式传输。HEADERS帧以设置END_STREAM标志开始尾部头部字段传输。下面的例子包含了一个100（Continue）状态码和尾部头部字段，被作为对在Except头部字段包含"100-continue"标识对的请求的响应中发送。
+Trailing头部字段在请求和响应头部块以及所有的DATA帧传输完成之后以头部块的形式传输。HEADERS帧设置END_STREAM标志开始尾部头部字段传输。下面的例子包含了一个100（Continue）状态码和尾部头部字段，被作为对在Except头部字段包含"100-continue"标识对的请求的响应中发送。
 
 ```
 HTTP/1.1 100 Continue            HEADERS
@@ -292,7 +292,7 @@ Foo: bar                         DATA
 ```
 
 
-8.1.4. Request Reliability Mechanisms in HTTP/2 / HTTP/2请求可靠机制
+#### 8.1.4. Request Reliability Mechanisms in HTTP/2 / HTTP/2请求可靠机制
 > In HTTP/1.1, an HTTP client is unable to retry a non-idempotent request when an error occurs because there is no means to determine the nature of the error. It is possible that some server processing occurred prior to the error, which could result in undesirable effects if the request were reattempted.
 
 在HTTP/1.1中，当错误发生时一个HTTP客户端不能重复一个非幂等的请求，因为没有方法确定错误的原因。可能一些服务器处理在错误发生之前已经处理了，当重新尝试请求时可能会造成不期望的后果。
@@ -317,7 +317,7 @@ HTTP/2 提供了两套机制能向客户端保证一个请求没有被处理。
 
 在这些机制之外，PING帧给客户端提供了一种简单测试连接的方式。闲置状态的连接可能被中间设备（例如，网络地址转换器或载荷均衡）静默的放弃连接绑定破坏。PING帧允许客户端安全的测试连接是否是活动的而不必发送请求。
 
-8.2. Server Push / 服务端推送
+### 8.2. Server Push / 服务端推送
 > HTTP/2 allows a server to pre-emptively send (or "push") responses (along with corresponding "promised" requests) to a client in association with a previous client-initiated request. This can be useful when the server knows the client will need to have those responses available in order to fully process the response to the original request.
 
 HTTP/2允许服务器先行发送（或推送）与先前客户端初始请求相关的响应（对应"许诺"的请求）到客户端。这在服务端知道客户端将会须要这些响应来完全地处理原始请求的响应时会很有用。
@@ -350,7 +350,7 @@ HTTP/2允许服务器先行发送（或推送）与先前客户端初始请求�
 
 客户端是不能推送的。因此，服务端必须把PUSH_PROMISE帧当作是PROTOCOL_ERROR类型的连接错误(Section 5.4.1)。客户端必须决绝任何尝试把SETTINGS_ENABLE_PUSH设置为非零值的消息，并把消息当作是PROTOCOL_ERROR类型的连接错误。
 
-### 8.2.1. Push Requests / 推送请求
+#### 8.2.1. Push Requests / 推送请求
 
 > Server push is semantically equivalent to a server responding to a request; however, in this case, that request is also sent by the server, as a PUSH_PROMISE frame.
 
@@ -385,11 +385,11 @@ PUSH_PROMISE帧可以被服务端发送来响应客户端初始流，但是流�
 
 发送一个PUSH_PROMISE帧创建了一个新的流，并将服务器端流的状态改为"reserved (local)"，客户端的状态改为"reserved (remote)"。
 
-### 8.2.2. Push Responses / 推送响应
+#### 8.2.2. Push Responses / 推送响应
 
 > After sending the PUSH_PROMISE frame, the server can begin delivering the pushed response as a response (Section 8.1.2.4) on a server-initiated stream that uses the promised stream identifier. The server uses this stream to transmit an HTTP response, using the same sequence of frames as defined in Section 8.1. This stream becomes "half-closed" to the client (Section 5.1) after the initial HEADERS frame is sent.
 
-在发送PUSH_PROMISE帧之后，服务端可以开始传递被推送的响应作为响应在使用许诺流标识符服务端初始的流上。服务端使用这个流传递HTTP响应，使用和在8.1节中定义的相同的帧序列。这个流对于客户端变成"half-closed"状态(Section 5.1)在初始HEADERS被发送之后。
+在发送PUSH_PROMISE帧之后，服务端可以开始传递被推送的响应作为响应在使用许诺流标识符服务端初始的流上。服务端使用这个流传递HTTP响应，使用和在8.1节中定义的相同的帧序列。在初始HEADERS被发送之后这个流对于客户端变成"half-closed"状态(Section 5.1)。
 
 > Once a client receives a PUSH_PROMISE frame and chooses to accept the pushed response, the client SHOULD NOT issue any requests for the promised response until after the promised stream has closed.
 
@@ -415,7 +415,7 @@ PUSH_PROMISE帧可以被服务端发送来响应客户端初始流，但是流�
 
 注意：客户端绝不对服务端推送发送设置END_STREAM标志的帧。
 
-8.3. The CONNECT Method / CONNECT方法
+### 8.3. The CONNECT Method / CONNECT方法
 > In HTTP/1.x, the pseudo-method CONNECT ([RFC7231], Section 4.3.6) is used to convert an HTTP connection into a tunnel to a remote host. CONNECT is primarily used with HTTP proxies to establish a TLS session with an origin server for the purposes of interacting with "https" resources.
 
 在HTTP/1.x,伪方法CONNECT([RFC7231], Section 4.3.6)被用来将HTTP连接转换成到一个远程主机的隧道。CONNECT主要被HTTP代理用来建立和远程服务端的TLS会话，为了和"https"资源交互。
