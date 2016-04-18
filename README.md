@@ -7,7 +7,7 @@
 + 请遵循"fork & pull request"协作模型, 不要直接commit到原始仓库.
 + 发起pull request之前请fetch/pull检查与upstream分支的差异获取最近更新.
 
-(更新时间2015-12-31)
+(更新时间2016-4-18)
 
 翻译进度:
 
@@ -46,7 +46,22 @@
   - [x] 5.5 [HTTP/2扩展](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#55-http2扩展)
 + [ ] 6. Frame Definitions
 + [x] 7. [错误码](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/7-zh-cn.md)
-+ [ ] 8. HTTP Message Exchanges
++ [x] 8. [HTTP消息交换](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md)
+   - [x] 8.1 [HTTP 请求/响应交换](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#81-http-requestresponse-exchange--http-请求响应交换)
+   - [x] 8.1.1 [从HTTP/2升级](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#811-upgrading-from-http2--从http2升级)
+   - [x] 8.1.2 [HTTP头部字段](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#812-http-header-fields--http头部字段)
+   - [x] 8.1.2.1 [伪头部字段](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#8121-pseudo-header-fields-伪头部字段)
+   - [x] 8.1.2.2 [针对连接的头部字段](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#8122-connection-specific-header-fields--connection-specific头部字段)
+   - [x] 8.1.2.3 [请求伪头部字段](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#8123-request-pseudo-header-fields--请求伪头部字段)
+   - [x] 8.1.2.4 [响应伪头部字段](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#8124-response-pseudo-header-fields--响应伪头部字段)
+   - [x] 8.1.2.5 [压缩Cookie头部字段](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#8125-compressing-the-cookie-header-field--压缩cookie头部字段)
+   - [x] 8.1.2.6 [不规范的请求和响应](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#8126-malformed-requests-and-responses--不规范的请求和响应)
+   - [x] 8.1.3 [例子](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#813-examples--例子)
+   - [x] 8.1.4 [HTTP/2请求可靠机制](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#814-request-reliability-mechanisms-in-http2--http2请求可靠机制)
+   - [x] 8.2 [服务端推送](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#82-server-push--服务端推送)
+   - [x] 8.2.1 [推送请求](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#821-push-requests--推送请求)
+   - [x] 8.2.2 [推送响应](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#822-push-responses--推送响应)
+   - [x] 8.3 [CONNECT方法](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#83-the-connect-method--connect方法)
 + [x] 9. [其他HTTP要求/注意事项](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/9-zh-cn.md)
    - [x] 9.1 [连接管理](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/9-zh-cn.md#91-连接管理)
    - [x] 9.1.1 [连接复用](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/9-zh-cn.md#911-连接复用)
