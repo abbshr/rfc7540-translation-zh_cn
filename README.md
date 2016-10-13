@@ -7,7 +7,7 @@
 + 请遵循"fork & pull request"协作模型, 不要直接commit到原始仓库.
 + 发起pull request之前请fetch/pull检查与upstream分支的差异获取最近更新.
 
-(更新时间2016-4-18)
+(更新时间2016-10-14)
 
 翻译进度:
 
@@ -44,7 +44,23 @@
   - [x] 5.4.2 [流错误](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#542-流错误处理)
   - [x] 5.4.3 [连接终止](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#543-连接终止)
   - [x] 5.5 [HTTP/2扩展](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/5-zh-cn.md#55-http2扩展)
-+ [ ] 6. Frame Definitions
++ [x] 6. [帧的定义](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md)
+  - [x] 6.1 [DATA 帧](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#61-data)
+  - [x] 6.2 [HEADERS 帧](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#62-headers)
+  - [x] 6. [PRIORITY 帧](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#63-priority)
+  - [x] 6.4 [RST_STREAM 帧](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#64-rst_stream)
+  - [x] 6.5 [SETTINGS 帧](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#65-settings)
+  - [x] 6.5.1 [SETTINGS 帧格式](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#651-settings格式)
+  - [x] 6.5.2 [已定义的 SETTINGS 参数](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#652-已定义的settings参数)
+  - [x] 6.5.3 [设置同步](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#653-设置同步)
+  - [x] 6.6 [PUSH_PROMISE 帧](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#66-push_promise)
+  - [x] 6.7 [PING 帧](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#67-ping)
+  - [x] 6.8 [GOAWAY 帧](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#68-goaway)
+  - [x] 6.9 [WINDOW_UPDATE 帧](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#69-window_update)
+  - [x] 6.9.1 [流控窗口](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#691-flow-control窗口)
+  - [x] 6.9.2 [初始的Flow-Control窗口大小](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#692-初始的flow-control窗口大小)
+  - [x] 6.9.3 [减小流窗口大小](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#693-减小流窗口大小)
+  - [x] 6.10 [CONTINUATION 帧](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/6-zh-cn.md#610-continuation)
 + [x] 7. [错误码](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/7-zh-cn.md)
 + [x] 8. [HTTP消息交换](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md)
    - [x] 8.1 [HTTP 请求/响应交换](https://github.com/abbshr/rfc7540-translation-zh_cn/blob/master/8-zh-cn.md#81-http-requestresponse-exchange--http-请求响应交换)
