@@ -109,7 +109,7 @@
   收到的PRIORITY frame用于重定流的优先级次序(依据流的标记而定)
 
 + `half-closed (remote)`
-	处于这个状态的流不能发送frame了. 并且端点也无需继续维护接收方流控窗口.
+	处于这个状态的流，对端不再用来发送frame了. 并且端点也无需继续维护接收方流控窗口.
 
   如果端点收到额外的frame,并且不是WINDOW_UPDATE, PRIORITY或RST_STREAM,那么必须响应一个类型为STREAM_CLOSED的流错误.
 
