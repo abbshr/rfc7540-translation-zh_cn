@@ -1,15 +1,15 @@
-## 3. Starting HTTP/2 / 开始HTTP/2
+## 3. Starting HTTP/2 / 开始 HTTP/2
 > An HTTP/2 connection is an application-layer protocol running on top of a TCP connection ([TCP]). The client is the TCP connection initiator.
 
-HTTP/2是一个运行在TCP连接之上的应用层协议。客户端是TCP连接的发起者。
+HTTP/2 是一个运行在 TCP 之上的应用层协议。客户端是 TCP 连接的发起者。
 
 > HTTP/2 uses the same "http" and "https" URI schemes used by HTTP/1.1. HTTP/2 shares the same default port numbers: 80 for "http" URIs and 443 for "https" URIs. As a result, implementations processing requests for target resource URIs like http://example.org/foo or https://example.com/bar are required to first discover whether the upstream server (the immediate peer to which the client wishes to establish a connection) supports HTTP/2.
 
-HTTP/2使用与HTTP/1.1相同的"http"和"https"URL模式，相同的默认端口号："http"的80端口和"https"的443端口。因此，在处理对例如http://example.org/foo 或 https://example.com/bar 目标资源URIs的请求前，需要首先确定上游服务端(当前客户端希望直接与之建立连接的对端)是否支持HTTP/2。
+HTTP/2 使用和 HTTP/1.1 一样的 "http" 和 "https" 的 URL 模式。同时 HTTP/2 和 HTTP/1.1 也共享了相同的默认端口号："http" 的 80 端口，"https" 的 443 端口。因此，实现者在处理类似 http://example.org/foo 或 https://example.com/bar 这样 URI 的目标资源请求之前，需要首先确定上游服务端（即当前客户端希望直接与之建立连接的对端）是否支持 HTTP/2。
 
 > The means by which support for HTTP/2 is determined is different for "http" and "https" URIs. Discovery for "http" URIs is described in Section 3.2. Discovery for "https" URIs is described in Section 3.3.
 
-检测"http"和"https"的URIs是否支持HTTP/2的方法是不一样的。检测"http"的URIs在3.2节中描述。检测"https"的URIs在3.3节中描述。
+对于 "http" 和 "https" 两种 URI，检测是否支持 HTTP/2 的方法是不同的。检测 "http" 的 URI 在 3.2 节中描述。检测 "https" 的 URI 在 3.3 节中描述。
 
 ### 3.1 HTTP/2 Version Identification / HTTP/2版本标识
 > The protocol defined in this document has two identifiers.
@@ -220,3 +220,5 @@ HTTP2-Settings首部字段的值是SETTINGS帧(6.5节)的有效载荷，被编�
 > Clients and servers MUST treat an invalid connection preface as a connection error (Section 5.4.1) of type PROTOCOL_ERROR. A GOAWAY frame (Section 6.8) MAY be omitted in this case, since an invalid preface indicates that the peer is not using HTTP/2.
 
 客户端和服务端都必须将无效的连接前奏处理为连接错误(5.4.1节)，错误类型为PROTOCOL_ERROR。在这种情况下，可以忽略GOAWAY帧(6.8节)，因为无效的连接前奏表示对端并没有使用HTTP/2。
+
+
