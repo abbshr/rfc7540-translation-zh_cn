@@ -35,7 +35,7 @@ HTTP/2 使用和 HTTP/1.1 一样的 "http" 和 "https" 的 URL 模式。同时 H
 
 "h2"或"h2c"协商需要用到本文档里描述的传输层、安全、帧和消息语义等概念。
 
-### 3.2 Starting HTTP/2 for "http" URIs / 为"http" URIs启用HTTP/2协议
+### 3.2 Starting HTTP/2 for "http" URIs / 为 "http" URI 启用 HTTP/2 协议
 > A client that makes a request for an "http" URI without prior knowledge about support for HTTP/2 on the next hop uses the HTTP Upgrade mechanism (Section 6.7 of [RFC7230]). The client does so by making an HTTP/1.1 request that includes an Upgrade header field with the "h2c" token. Such an HTTP/1.1 request MUST include exactly one HTTP2-Settings (Section 3.2.1) header field.
 >
 > For example:
@@ -48,7 +48,7 @@ HTTP/2 使用和 HTTP/1.1 一样的 "http" 和 "https" 的 URL 模式。同时 H
 > HTTP2-Settings: <base64url encoding of HTTP/2 SETTINGS payload>
 > ```
 
-事先不知道下一跳是否支持HTTP/2的客户端在发起"http"URI请求时，使用HTTP的Upgrade机制(*[RFC7230]*的6.7节)。客户端做法是：发起一个包含值为"h2c"的Upgrade首部字段的HTTP/1.1请求。该请求还必须明确包含一个HTTP2-Settings(3.2.1节)首部字段。
+客户端在发起一个 "http" URI 的请求时，如果事先不知道下一跳是否支持 HTTP/2 ，需要使用 HTTP Upgrade 机制(*[RFC7230]*的6.7节)。客户端首先发起一个 HTTP/1.1 请求，其中包含值为 "h2c" 的 Upgrade 首部字段。该请求还必须包含一个 HTTP2-Settings (3.2.1节)首部字段。
 
 例如：
 
@@ -62,11 +62,11 @@ HTTP2-Settings: <base64url encoding of HTTP/2 SETTINGS payload>
 
 > Requests that contain a payload body MUST be sent in their entirety before the client can send HTTP/2 frames. This means that a large request can block the use of the connection until it is completely sent.
 
-在客户端能发送HTTP/2帧之前，包含有效载荷的请求必须被全部发送。这意味着一个大的请求能阻塞连接的使用，直到其被全部发送完毕。
+在客户端能发送 HTTP/2 帧之前，包含有效载荷的请求必须被全部发送。这意味着一个大的请求能阻塞连接的使用，直到其被全部发送完毕。
 
 > If concurrency of an initial request with subsequent requests is important, an OPTIONS request can be used to perform the upgrade to HTTP/2, at the cost of an additional round trip.
 
-如果一个有后续请求的初始请求的并发很重要，那么可以使用OPTIONS请求来执行升级到HTTP/2的操作，代价是一个额外的往返。
+如果一个有后续请求的初始请求的并发很重要，那么可以使用 OPTIONS 请求来执行升级到HTTP/2 的操作，代价是一个额外的往返。
 
 > A server that does not support HTTP/2 can respond to the request as though the Upgrade header field were absent:
 >
@@ -77,7 +77,7 @@ HTTP2-Settings: <base64url encoding of HTTP/2 SETTINGS payload>
 > ...
 > ```
 
-不支持HTTP/2的服务端响应请求时可以忽略Upgrade首部字段：
+不支持 HTTP/2 的服务端响应请求时，可以认为 Upgrade 首部字段不存在：
 
 ```
 HTTP/1.1 200 OK
@@ -88,7 +88,7 @@ Content-Type: text/html
 
 > A server MUST ignore an "h2" token in an Upgrade header field. Presence of a token with "h2" implies HTTP/2 over TLS, which is instead negotiated as described in Section 3.3.
 
-服务端必须忽略值为"h2"的Upgrade首部字段。"h2"标识表示HTTP/2使用了TLS，其协商方法在3.3节中描述。
+服务端必须忽略值为 "h2" 的 Upgrade 首部字段。"h2" 标示使用 TLS 的 HTTP/2，其协商过程在 3.3 节中描述。
 
 > A server that supports HTTP/2 accepts the upgrade with a 101 (Switching Protocols) response. After the empty line that terminates the 101 response, the server can begin sending HTTP/2 frames. These frames MUST include a response to the request that initiated the upgrade.
 >
@@ -102,7 +102,7 @@ Content-Type: text/html
 > [ HTTP/2 connection ...
 > ```
 
-支持HTTP/2的服务端以返回101(Switching Protocols)响应的方式表示接受升级协议的请求。结束101响应的空行之后，服务端可以开始发送HTTP/2帧。这些帧必须包含一个对初始升级请求的响应。
+支持 HTTP/2 的服务端以返回 101(Switching Protocols) 响应的方式表示接受升级协议的请求。在结束 101 响应的空行之后，服务端可以开始发送 HTTP/2 帧。这些帧必须包含一个对初始升级请求的响应。
 
 例如：
 
@@ -116,20 +116,20 @@ Upgrade: h2c
 
 > The first HTTP/2 frame sent by the server MUST be a server connection preface (Section 3.5) consisting of a SETTINGS frame (Section 6.5). Upon receiving the 101 response, the client MUST send a connection preface (Section 3.5), which includes a SETTINGS frame.
 
-服务端发送的第一个HTTP/2帧必须是由一个SETTINGS帧(6.5节)组成的服务端连接前奏(3.5节)。客户端一收到101响应，也必须发送一个包含SETTINGS帧的连接前奏。
+服务端发送的第一个 HTTP/2 帧必须是由一个 SETTINGS 帧(6.5节)组成的服务端连接前奏(3.5节)。客户端收到 101 响应之后，也必须发送一个包含 SETTINGS 帧的连接前奏。
 
 > The HTTP/1.1 request that is sent prior to upgrade is assigned a stream identifier of 1 (see Section 5.1.1) with default priority values (Section 5.3.5). Stream 1 is implicitly "half-closed" from the client toward the server (see Section 5.1), since the request is completed as an HTTP/1.1 request. After commencing the HTTP/2 connection, stream 1 is used for the response.
 
-升级之前发送的HTTP/1.1请求被分配了一个有着默认优先级值(5.3.5节)的流标识符1(5.1.1节)。流1暗示从客户端到服务端(5.1节)是半关闭的，因为该请求作为HTTP/1.1请求已经完成了。HTTP/2连接开始后，流1用于响应。
+升级之前发送的 HTTP/1.1 请求被分配了一个有着默认优先级值(5.3.5节)的流标识符 1(5.1.1节)。流 1 暗示从客户端到服务端(5.1节)是半关闭的，因为该请求作为HTTP/1.1 请求已经完成了。HTTP/2 连接开始后，流 1 用于响应。
 
-#### 3.2.1 HTTP2-Settings Header Field / HTTP2-Settings首部字段
+#### 3.2.1 HTTP2-Settings Header Field / HTTP2-Settings 首部字段
 > A request that upgrades from HTTP/1.1 to HTTP/2 MUST include exactly one HTTP2-Settings header field. The HTTP2-Settings header field is a connection-specific header field that includes parameters that govern the HTTP/2 connection, provided in anticipation of the server accepting the request to upgrade.
 >
 > ```
 > HTTP2-Settings    = token68
 > ```
 
-从HTTP/1.1升级到HTTP/2的请求必须确切地包含一个HTTP2-Settings首部字段。HTTP2-Settings首部字段是一个连接专用的首部字段，它包含管理HTTP/2连接的参数，假设服务端会接受升级请求。
+从 HTTP/1.1 升级到 HTTP/2 的请求必须包含且只包含一个 HTTP2-Settings 首部字段。HTTP2-Settings 是一个连接相关的首部字段，它提供了用于管理 HTTP/2 连接的参数（前提是服务端接受了升级请求）。
 
 ```
 HTTP2-Settings    = token68
@@ -137,19 +137,19 @@ HTTP2-Settings    = token68
 
 > A server MUST NOT upgrade the connection to HTTP/2 if this header field is not present or if more than one is present. A server MUST NOT send this header field.
 
-如果该首部字段没有出现，或者出现了不止一个，那么服务端一定不要把连接升级到HTTP/2。服务端一定不要发送该首部字段。
+如果该首部字段没有出现，或者出现了不止一个 ，那么服务端一定不要把连接升级到 HTTP/2。服务端一定不要发送该首部字段。
 
 > The content of the HTTP2-Settings header field is the payload of a SETTINGS frame (Section 6.5), encoded as a base64url string (that is, the URL- and filename-safe Base64 encoding described in Section 5 of [RFC4648], with any trailing '=' characters omitted). The ABNF [RFC5234] production for token68 is defined in Section 2.1 of [RFC7235].
 
-HTTP2-Settings首部字段的值是SETTINGS帧(6.5节)的有效载荷，被编码成了base64url串(即，*[RFC4648]*第5节描述的URL和文件名安全Base64编码，忽略任何结尾'='字符)。ABNF*[RFC5234]*产生token68在*[RFC7235]*2.1节有定义。
+HTTP2-Settings 首部字段的值是 SETTINGS 帧(6.5节)的有效载荷，被编码成了base64url 串(即，*[RFC4648]*第 5 节描述的 URL 和文件名安全 Base64 编码，忽略任何结尾'='字符)。ABNF*[RFC5234]*产生 token68 在*[RFC7235]*2.1节有定义。
 
 > Since the upgrade is only intended to apply to the immediate connection, a client sending the HTTP2-Settings header field MUST also send HTTP2-Settings as a connection option in the Connection header field to prevent it from being forwarded (see Section 6.1 of [RFC7230]).
 
-因为升级操作只适用于相邻端点的直连，发送HTTP2-Settings首部字段的客户端也必须在发送的Connection首部字段值里加上HTTP2-Settings，以阻止它被转发(参见*[RFC7230]*的6.1节)。
+因为升级操作只适用于相邻端点的直连，发送 HTTP2-Settings 首部字段的客户端也必须在发送的 Connection 首部字段值里加上 HTTP2-Settings ，以阻止它被转发(参见*[RFC7230]*的 6.1 节)。
 
 > A server decodes and interprets these values as it would any other SETTINGS frame. Explicit acknowledgement of these settings (Section 6.5.3) is not necessary, since a 101 response serves as implicit acknowledgement. Providing these values in the upgrade request gives a client an opportunity to provide parameters prior to receiving any frames from the server.
 
-就像对其他的SETTINGS帧那样，服务端对这些值进行解码和解释。没有必要对这些设置(6.5.3节)进行显示的确认，因为101响应就相当于隐式的确认。在收到服务端发送的帧之前，客户端有机会在升级请求的这些值里提供一些参数。
+就像对其他的 SETTINGS 帧那样，服务端对这些值进行解码和解释。对这些设置(6.5.3节)进行显式的确认是没有必要的，因为 101 响应本身就相当于隐式的确认。升级请求中提供这些值，让客户端有机会在收到服务端的帧之前就设置一些参数。
 
 ### 3.3 Starting HTTP/2 for "https" URIs / 为"https" URIs启用HTTP/2协议
 > A client that makes a request to an "https" URI uses TLS [TLS12] with the application-layer protocol negotiation (ALPN) extension [TLS-ALPN].
