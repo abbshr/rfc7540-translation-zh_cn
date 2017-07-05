@@ -11,7 +11,7 @@ HTTP/2 使用和 HTTP/1.1 一样的 "http" 和 "https" 的 URL 模式。同时 H
 
 对于 "http" 和 "https" 两种 URI，检测是否支持 HTTP/2 的方法是不同的。检测 "http" 的 URI 在 3.2 节中描述。检测 "https" 的 URI 在 3.3 节中描述。
 
-### 3.1 HTTP/2 Version Identification / HTTP/2版本标识
+### 3.1 HTTP/2 Version Identification / HTTP/2 版本标识
 > The protocol defined in this document has two identifiers.
 >
 > * The string "h2" identifies the protocol where HTTP/2 uses Transport Layer Security (TLS) [TLS12]. This identifier is used in the TLS application-layer protocol negotiation (ALPN) extension [TLS-ALPN] field and in any place where HTTP/2 over TLS is identified.
@@ -23,17 +23,17 @@ HTTP/2 使用和 HTTP/1.1 一样的 "http" 和 "https" 的 URL 模式。同时 H
 
 本文档定义的协议有两个标识符：
 
-* 字符串"h2"表示HTTP/2协议使用了TLS(Transport Layer Security)*[TLS12]*。该标识符用在TLS-ALPN(application-layer protocol negotiation)*[TLS-ALPN]*的扩展字段，以及任何在TLS之上运行HTTP/2的场合。
+* 字符串 "h2" 标示使用了 TLS(Transport Layer Security)*[TLS12]* 的 HTTP/2 协议。该标识符用在 TLS-ALPN(application-layer protocol negotiation)*[TLS-ALPN]* 的扩展字段，以及其他需要标示运行于 TLS 之上 HTTP/2 的地方。
 
-  "h2"字符串序列化到ALPN协议里变成了两个字节的序列：0x68，0x32。
+  "h2" 字符串序列化成 ALPN 协议标识符时是两个字节的序列：0x68，0x32。
 
-* 字符串"h2c"表示HTTP/2协议运行在明文TCP上。该标识符用在HTTP/1.1的Upgrade首部字段，以及任何在TCP之上运行HTTP/2的场合。
+* 字符串 "h2c" 标示运行在明文 TCP 之上的 HTTP/2 协议。该标识符用在 HTTP/1.1 的 Upgrade 首部字段，以及其他需要标示运行于 TCP 之上 HTTP/2 的地方。
 
-  "h2c"字符串保留在ALPN标识符空间，但是用来表示不使用TLS的协议。
+  "h2c" 字符串保留在 ALPN 标识符空间，但是实际上标示了一个不使用 TLS 的协议。
 
 > Negotiating "h2" or "h2c" implies the use of the transport, security, framing, and message semantics described in this document.
 
-"h2"或"h2c"协商需要用到本文档里描述的传输层、安全、帧和消息语义等概念。
+协商 "h2" 或 "h2c" 需要用到本文档里描述的传输, 安全, 成帧和消息语义等概念。
 
 ### 3.2 Starting HTTP/2 for "http" URIs / 为 "http" URI 启用 HTTP/2 协议
 > A client that makes a request for an "http" URI without prior knowledge about support for HTTP/2 on the next hop uses the HTTP Upgrade mechanism (Section 6.7 of [RFC7230]). The client does so by making an HTTP/1.1 request that includes an Upgrade header field with the "h2c" token. Such an HTTP/1.1 request MUST include exactly one HTTP2-Settings (Section 3.2.1) header field.
