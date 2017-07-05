@@ -62,11 +62,11 @@ HTTP2-Settings: <base64url encoding of HTTP/2 SETTINGS payload>
 
 > Requests that contain a payload body MUST be sent in their entirety before the client can send HTTP/2 frames. This means that a large request can block the use of the connection until it is completely sent.
 
-在客户端能发送 HTTP/2 帧之前，包含有效载荷的请求必须被全部发送。这意味着一个大的请求能阻塞连接的使用，直到其被全部发送完毕。
+在客户端能发送 HTTP/2 帧之前，包含有效载荷的请求必须被全部发送。这意味着一个大尺寸的请求会独占连接, 直到它全部发送完毕。
 
 > If concurrency of an initial request with subsequent requests is important, an OPTIONS request can be used to perform the upgrade to HTTP/2, at the cost of an additional round trip.
 
-如果一个有后续请求的初始请求的并发很重要，那么可以使用 OPTIONS 请求来执行升级到HTTP/2 的操作，代价是一个额外的往返。
+对于一个具有后续请求的初始请求来说，如果它并发性十分重要，那么可以先发送一个 OPTIONS 类型的请求, 将协议升级到 HTTP/2, 但这样做会带来一个额外的往返开销。
 
 > A server that does not support HTTP/2 can respond to the request as though the Upgrade header field were absent:
 >
@@ -102,7 +102,7 @@ Content-Type: text/html
 > [ HTTP/2 connection ...
 > ```
 
-支持 HTTP/2 的服务端以返回 101(Switching Protocols) 响应的方式表示接受升级协议的请求。在结束 101 响应的空行之后，服务端可以开始发送 HTTP/2 帧。这些帧必须包含一个对初始升级请求的响应。
+支持 HTTP/2 的服务器响应状态码 101 (Switching Protocols) 表示接受升级协议的请求。在结束 101 响应的空行之后，服务端可以开始发送 HTTP/2 帧。这些帧必须包含一个对初始升级请求的响应。
 
 例如：
 
@@ -137,15 +137,15 @@ HTTP2-Settings    = token68
 
 > A server MUST NOT upgrade the connection to HTTP/2 if this header field is not present or if more than one is present. A server MUST NOT send this header field.
 
-如果该首部字段没有出现，或者出现了不止一个 ，那么服务端一定不要把连接升级到 HTTP/2。服务端一定不要发送该首部字段。
+如果该首部字段没有出现，或者出现了不止一个，那么服务端一定不要把连接升级到 HTTP/2。服务端一定不要发送该首部字段。
 
 > The content of the HTTP2-Settings header field is the payload of a SETTINGS frame (Section 6.5), encoded as a base64url string (that is, the URL- and filename-safe Base64 encoding described in Section 5 of [RFC4648], with any trailing '=' characters omitted). The ABNF [RFC5234] production for token68 is defined in Section 2.1 of [RFC7235].
 
-HTTP2-Settings 首部字段的值是 SETTINGS 帧(6.5节)的有效载荷，被编码成了base64url 串(即，*[RFC4648]*第 5 节描述的 URL 和文件名安全 Base64 编码，忽略任何结尾'='字符)。ABNF*[RFC5234]*产生 token68 在*[RFC7235]*2.1节有定义。
+HTTP2-Settings 首部字段的值是 SETTINGS 帧(6.5节)的有效载荷，被编码成了 base64url 串(即，*[RFC4648]*第 5 节描述的 URL 和文件名安全 Base64 编码，忽略任何结尾'='字符)。ABNF*[RFC5234]*产生 token68 在*[RFC7235]*2.1节有定义。
 
 > Since the upgrade is only intended to apply to the immediate connection, a client sending the HTTP2-Settings header field MUST also send HTTP2-Settings as a connection option in the Connection header field to prevent it from being forwarded (see Section 6.1 of [RFC7230]).
 
-因为升级操作只适用于相邻端点的直连，发送 HTTP2-Settings 首部字段的客户端也必须在发送的 Connection 首部字段值里加上 HTTP2-Settings ，以阻止它被转发(参见*[RFC7230]*的 6.1 节)。
+因为升级操作只适用于相邻端点的直连，发送 HTTP2-Settings 首部字段的客户端也必须在发送的 Connection 首部字段值里加上 HTTP2-Settings ，防止它被转发(参见*[RFC7230]*的 6.1 节)。
 
 > A server decodes and interprets these values as it would any other SETTINGS frame. Explicit acknowledgement of these settings (Section 6.5.3) is not necessary, since a 101 response serves as implicit acknowledgement. Providing these values in the upgrade request gives a client an opportunity to provide parameters prior to receiving any frames from the server.
 
