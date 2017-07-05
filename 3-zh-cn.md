@@ -33,7 +33,7 @@ HTTP/2 使用和 HTTP/1.1 一样的 "http" 和 "https" 的 URL 模式。同时 H
 
 > Negotiating "h2" or "h2c" implies the use of the transport, security, framing, and message semantics described in this document.
 
-协商 "h2" 或 "h2c" 需要用到本文档里描述的传输层、安全、帧和消息语义等概念。
+协商 "h2" 或 "h2c" 需要用到本文档里描述的传输, 安全, 成帧和消息语义等概念。
 
 ### 3.2 Starting HTTP/2 for "http" URIs / 为"http" URIs启用HTTP/2协议
 > A client that makes a request for an "http" URI without prior knowledge about support for HTTP/2 on the next hop uses the HTTP Upgrade mechanism (Section 6.7 of [RFC7230]). The client does so by making an HTTP/1.1 request that includes an Upgrade header field with the "h2c" token. Such an HTTP/1.1 request MUST include exactly one HTTP2-Settings (Section 3.2.1) header field.
