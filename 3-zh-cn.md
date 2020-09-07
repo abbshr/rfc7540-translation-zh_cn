@@ -162,7 +162,7 @@ HTTP2-Settings 首部字段的值是 SETTINGS 帧(6.5节)的有效载荷，被�
 
 > Once TLS negotiation is complete, both the client and the server MUST send a connection preface (Section 3.5).
 
-一旦 TLS 协商完成，客户端和服务端都必须发送一个连接前奏(3.5节)。
+一旦 TLS 协商完成，客户端和服务端都必须发送一个连接序言(3.5节)。
 
 ### 3.4 Starting HTTP/2 with Prior Knowledge / 先验知识下启用 HTTP/2
 > A client can learn that a particular server supports HTTP/2 by other means. For example, [ALT-SVC] describes a mechanism for advertising this capability.
@@ -171,20 +171,20 @@ HTTP2-Settings 首部字段的值是 SETTINGS 帧(6.5节)的有效载荷，被�
 
 > A client MUST send the connection preface (Section 3.5) and then MAY immediately send HTTP/2 frames to such a server; servers can identify these connections by the presence of the connection preface. This only affects the establishment of HTTP/2 connections over cleartext TCP; implementations that support HTTP/2 over TLS MUST use protocol negotiation in TLS [TLS-ALPN].
 
-客户端必须先向这种服务端发送连接前奏(3.5)，然后可以立即发送 HTTP/2 帧。服务端能通过连接前奏识别出这种连接。这只影响基于明文 TCP 的 HTTP/2 连接。基于 TLS 的 HTTP/2 实现必须使用 TLS 中的协议协商*[TLS-ALPN]*。
+客户端必须先向这种服务端发送连接序言(3.5)，然后可以立即发送 HTTP/2 帧。服务端能通过连接序言识别出这种连接。这只影响基于明文 TCP 的 HTTP/2 连接。基于 TLS 的 HTTP/2 实现必须使用 TLS 中的协议协商*[TLS-ALPN]*。
 
 > Likewise, the server MUST send a connection preface (Section 3.5).
 
-同样，服务端也必须发送一个连接前奏(3.5节)。
+同样，服务端也必须发送一个连接序言(3.5节)。
 
 > Without additional information, prior support for HTTP/2 is not a strong signal that a given server will support HTTP/2 for future connections. For example, it is possible for server configurations to change, for configurations to differ between instances in clustered servers, or for network conditions to change.
 
 在没有额外的参考信息的情况下，某个服务端先前支持 HTTP/2 并不能表明它在以后的连接中仍会支持 HTTP/2。例如，服务端配置有可能改变了，或者集群中不同服务器配置有差异，或者网络状况改变了。
 
-### 3.5 HTTP/2 Connection Preface / HTTP/2 连接前奏
+### 3.5 HTTP/2 Connection Preface / HTTP/2 连接序言
 > In HTTP/2, each endpoint is required to send a connection preface as a final confirmation of the protocol in use and to establish the initial settings for the HTTP/2 connection. The client and server each send a different connection preface.
 
-在 HTTP/2 连接中，要求两端都要发送一个连接前奏，作为对所使用协议的最终确认，并确定 HTTP/2 连接的初始设置。客户端和服务端各自发送不同的连接前奏。
+在 HTTP/2 连接中，要求两端都要发送一个连接序言，作为对所使用协议的最终确认，并确定 HTTP/2 连接的初始设置。客户端和服务端各自发送不同的连接序言。
 
 > The client connection preface starts with a sequence of 24 octets, which in hex notation is:
 >
@@ -193,13 +193,13 @@ HTTP2-Settings 首部字段的值是 SETTINGS 帧(6.5节)的有效载荷，被�
 > ```
 > That is, the connection preface starts with the string PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n). This sequence MUST be followed by a SETTINGS frame (Section 6.5), which MAY be empty. The client sends the client connection preface immediately upon receipt of a 101 (Switching Protocols) response (indicating a successful upgrade) or as the first application data octets of a TLS connection. If starting an HTTP/2 connection with prior knowledge of server support for the protocol, the client connection preface is sent upon connection establishment.
 
-客户端连接前奏以一个24字节的序列开始，用十六进制表示为：
+客户端连接序言以一个24字节的序列开始，用十六进制表示为：
 
 ```
 0x505249202a20485454502f322e300d0a0d0a534d0d0a0d0a
 ```
 
-连接前奏以字符串 "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n" 开始。这个序列后面必须跟一个可以为空的 SETTINGS 帧(6.5节)。客户端一收到 101(Switching Protocols) 响应（表示成功升级）后，就发送客户端连接前奏，或者作为 TLS 连接的第一批应用数据字节。如果在预先知道服务端支持 HTTP/2 的情况下启用 HTTP/2 连接，客户端的连接前奏在连接建立时发送。
+连接序言以字符串 "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n" 开始。这个序列后面必须跟一个可以为空的 SETTINGS 帧(6.5节)。客户端一收到 101(Switching Protocols) 响应（表示成功升级）后，就发送客户端连接序言，或者作为 TLS 连接的第一批应用数据字节。如果在预先知道服务端支持 HTTP/2 的情况下启用 HTTP/2 连接，客户端的连接序言在连接建立时发送。
 
 > Note: The client connection preface is selected so that a large proportion of HTTP/1.1 or HTTP/1.0 servers and intermediaries do not attempt to process further frames. Note that this does not address the concerns raised in [TALKING].
 
@@ -215,7 +215,7 @@ HTTP2-Settings 首部字段的值是 SETTINGS 帧(6.5节)的有效载荷，被�
 
 > To avoid unnecessary latency, clients are permitted to send additional frames to the server immediately after sending the client connection preface, without waiting to receive the server connection preface. It is important to note, however, that the server connection preface SETTINGS frame might include parameters that necessarily alter how a client is expected to communicate with the server. Upon receiving the SETTINGS frame, the client is expected to honor any parameters established. In some configurations, it is possible for the server to transmit SETTINGS before the client sends additional frames, providing an opportunity to avoid this issue.
 
-为了避免不必要的延迟，允许客户端发送完连接前奏后就立即向服务端发送其他的帧，而不必等待服务端的连接前奏。不过需要注意的是，服务端连接前奏的 SETTINGS 帧可能包含一些期望客户端如何与服务端进行通信所必须修改的参数。在收到这些 SETTINGS 帧以后，客户端应当遵守所有设置的参数。在某些配置中，服务端是可以在客户端发送额外的帧之前传送 SETTINGS 帧的，这样就避免了之前所说的问题。
+为了避免不必要的时延，允许客户端发送完连接前奏后就立即向服务端发送其他的帧，而不必等待服务端的连接前奏。不过需要注意的是，服务端连接前奏的 SETTINGS 帧可能包含一些期望客户端如何与服务端进行通信所必须修改的参数。在收到这些 SETTINGS 帧以后，客户端应当遵守所有设置的参数。在某些配置中，服务端是可以在客户端发送额外的帧之前传送 SETTINGS 帧的，这样就避免了之前所说的问题。
 
 > Clients and servers MUST treat an invalid connection preface as a connection error (Section 5.4.1) of type PROTOCOL_ERROR. A GOAWAY frame (Section 6.8) MAY be omitted in this case, since an invalid preface indicates that the peer is not using HTTP/2.
 
