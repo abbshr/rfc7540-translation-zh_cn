@@ -2,7 +2,7 @@
 
 > Error codes are 32-bit fields that are used in RST_STREAM and GOAWAY   frames to convey the reasons for the stream or connection error.
 
-错误码是32位字段，用在`RST_STREAM`和超时帧中去标识流或者连接错误的原因。
+错误码是32位字段，用在`RST_STREAM`和GOAWAY帧中去标识流或者连接错误的原因。
 
 > Error codes share a common code space.  Some error codes apply only   to either streams or the entire connection and have no defined   semantics in the other context.
 
